@@ -1,0 +1,21 @@
+name: MenuPlugin
+version: 1.0.0
+main: com.yourname.menuplugin.MenuPlugin
+api-version: "1.21"
+description: 蹲下+交換手中物品開啟選單插件
+author: YourName
+website: yourwebsite.com
+
+commands:
+  menu:
+    description: 開啟選單指令
+    usage: /<command> [setup]
+    aliases: [m, menù]
+
+permissions:
+  menuplugin.use:
+    description: 使用選單權限
+    default: true
+  menuplugin.setup:
+    description: 編輯選單權限
+    default: op

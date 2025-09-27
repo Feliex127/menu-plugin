@@ -1,0 +1,24 @@
+# MenuPlugin 配置檔案
+settings:
+  # 冷卻時間（刻）
+  cooldown: 10
+  # 選單大小
+  menu-size: 54
+
+# 默認選單項目
+default-items:
+  10:
+    material: ENDER_PEARL
+    name: "§b§l傳送選單"
+    lore:
+      - "§7點擊開啟傳送選單"
+      - "§7可以傳送到各個地點"
+    commands:
+      - "say {player} 開啟了傳送選單"
+  12:
+    material: DIAMOND_PICKAXE
+    name: "§a§l工具選單"
+    lore:
+      - "§7點擊開啟工具選單"
+    commands:
+      - "give {player} diamond_pickaxe 1"
