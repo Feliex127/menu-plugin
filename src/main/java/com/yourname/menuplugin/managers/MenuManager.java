@@ -3,17 +3,14 @@ package com.yourname.menuplugin.managers;
 import com.yourname.menuplugin.MenuPlugin;
 import com.yourname.menuplugin.gui.MainMenuGUI;
 import com.yourname.menuplugin.gui.MenuEditorGUI;
-import com.yourname.menuplugin.utils.ConfigManager;
 import org.bukkit.entity.Player;
 
 public class MenuManager {
     
     private final MenuPlugin plugin;
-    private final ConfigManager configManager;
     
     public MenuManager(MenuPlugin plugin) {
         this.plugin = plugin;
-        this.configManager = plugin.getConfigManager();
     }
     
     public void openMainMenu(Player player) {

@@ -1,7 +1,6 @@
 package com.yourname.menuplugin.listeners;
 
 import com.yourname.menuplugin.MenuPlugin;
-import com.yourname.menuplugin.gui.MenuEditorGUI;
 import com.yourname.menuplugin.utils.ConfigManager;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
@@ -57,7 +56,8 @@ public class InventoryEditListener implements Listener {
                 if (menuItems.containsKey(slot)) {
                     plugin.getConfigManager().removeMenuItem(slot);
                     player.sendMessage(Component.text("§c已刪除槽位 " + slot + " 的項目"));
-                    new MenuEditorGUI(plugin).open(player);
+                    // 重新打開編輯器以刷新界面
+                    plugin.getMenuManager().openMenuEditor(player);
                 }
             } else {
                 // 左鍵編輯/添加
@@ -71,8 +71,8 @@ public class InventoryEditListener implements Listener {
                     // 添加新項目
                     pendingEdits.put(player.getUniqueId(), new ConfigManager.MenuItem(
                         Material.STONE, "新項目", 
-                        java.util.Arrays.asList("點擊執行指令"), 
-                        java.util.Arrays.asList("say Hello {player}")
+                        Arrays.asList("點擊執行指令"), 
+                        Arrays.asList("say Hello {player}")
                     ));
                     player.sendMessage(Component.text("§a請在聊天欄輸入物品材質（如: STONE、DIAMOND）"));
                 }
@@ -95,7 +95,7 @@ public class InventoryEditListener implements Listener {
         String message = event.getMessage();
         
         plugin.getServer().getScheduler().runTask(plugin, () -> {
-            if (menuItem.getMaterial() == Material.STONE) {
+            if (menuItem.getMaterial() == Material.STONE && menuItem.getName().equals("新項目")) {
                 // 設置材質
                 try {
                     Material material = Material.valueOf(message.toUpperCase());
@@ -115,7 +115,7 @@ public class InventoryEditListener implements Listener {
             } else {
                 // 設置指令
                 String[] commands = message.split(";");
-                menuItem.setCommands(java.util.Arrays.asList(commands));
+                menuItem.setCommands(Arrays.asList(commands));
                 plugin.getConfigManager().setMenuItem(slot, menuItem);
                 
                 player.sendMessage(Component.text("§a指令設置完成！"));
@@ -124,7 +124,7 @@ public class InventoryEditListener implements Listener {
                 editingPlayers.remove(playerId);
                 pendingEdits.remove(playerId);
                 
-                new MenuEditorGUI(plugin).open(player);
+                plugin.getMenuManager().openMenuEditor(player);
             }
         });
     }
